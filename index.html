@@ -1,4 +1,4 @@
-<strong><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
@@ -8,14 +8,14 @@
     body {
       font-family: 'Arial', sans-serif;
       background-color: #000;
-</strong>      color: #ffffff;
+      color: #fff;
       margin: 0;
       padding: 0;
       display: flex;
       justify-content: center;
     }
     .container {
-      width: 90%;
+      width: 95%;
       max-width: 900px;
       background: #111;
       padding: 30px;
@@ -28,7 +28,7 @@
       margin-bottom: 20px;
     }
     .logo img {
-      max-width: 280px;
+      max-width: 65%;
     }
     h1 {
       text-align: center;
@@ -39,24 +39,32 @@
     }
     .item {
       background: #1a1a1a;
-      padding: 12px 15px;
+      padding: 15px;
       margin: 10px 0;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.4);
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      flex-direction: column;
+      gap: 10px;
     }
     .item span {
-    font-size: 1rem;
-    color: #ffffff; /* <<< AQUI deixa as músicas brancas */
-}
-    input[type="text"] {
-      width: 80%;
-      padding: 10px;
-      border-radius: 8px;
+      font-size: 1.1rem;
+      color: #ffffff;
+      font-weight: bold;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    select, input[type="text"] {
+      padding: 8px;
+      border-radius: 6px;
       border: none;
-      margin-top: 10px;
+      background: #222;
+      color: #fff;
+      flex: 1;
+      min-width: 100px;
     }
     button {
       background: #db0c2a;
@@ -66,11 +74,29 @@
       border-radius: 8px;
       cursor: pointer;
       font-weight: bold;
-      margin-left: 8px;
       box-shadow: 0 0 10px rgba(219,12,42,0.6);
     }
-    button:hover {
-      background: #b40a22;
+    label {
+      color: #ffffff;
+      font-weight: bold;
+      display: block;
+      margin-top: 20px;
+    }
+
+    /* MOBILE RESPONSIVE */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.7rem;
+      }
+      .item span {
+        font-size: 1rem;
+      }
+      .controls {
+        flex-direction: column;
+      }
+      button {
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -84,60 +110,121 @@
 
     <div id="setlist"></div>
 
-    <h3>Adicionar música</h3>
+    <label>Adicionar música</label>
     <input type="text" id="musicInput" placeholder="Nome da música" />
+
+    <label>Tom</label>
+    <select id="keyInput"></select>
+
+    <label>Cantor(a)</label>
+    <input type="text" id="singerInput" placeholder="Quem canta" />
+
     <button onclick="addMusic()">Adicionar</button>
   </div>
 
   <script>
-    const initialSongs = [
-      "PRIMEIROS ERROS",
-      "MEU ERRO",
-      "Quero Ser Feliz Também",
-      "TEMPO PERDIDO",
-      "SERÁ",
-      "Ainda é CEDO",
-      "CLAUDIO ZOLI POT-POURRI",
-      "EXAGERADO (chamamos Deborah ao palco)",
-      "TAKE ON ME - Deborah Vox",
-      "IN BETWEEN DAYS – THE CURE",
-      "JUST LIKE HEAVEN",
-      "A LITTLE RESPECT - Deb ajudando no refrão",
-      "EVERYBODY WANTS TO RULE THE WORLD",
-      "PSYCHO KILLER",
-      "Dancing Queen",
-      "Sweet Child of Mine",
-      "TWIST AND SHOUT + La Bamba",
-      "Don't Start Now - DUA LIPA - Deb",
-      "HAVE YOU EVER SEEN THE RAIN - Deb",
-      "FOGO E PAIXAO",
-      "Toda Forma de Amor",
-      "EVIDENCIAS",
-      "WHISKY A GO GO",
-      "Milla (Netinho)",
-      "NAO QUERO DINHEIRO"
-    ];
+    const KEYS = ["A","Bb","B","C","Db","D","Eb","E","F","Gb","G","Ab"];
+
+    // LocalStorage support
+    let songs = JSON.parse(localStorage.getItem("macbanda_setlist")) || [];
+
+    if (songs.length === 0) {
+      songs = [
+        { title: "PRIMEIROS ERROS", key: "C", singer: "" },
+        { title: "MEU ERRO", key: "C", singer: "" },
+        { title: "Quero Ser Feliz Também", key: "C", singer: "" },
+        { title: "TEMPO PERDIDO", key: "C", singer: "" },
+        { title: "SERÁ", key: "C", singer: "" },
+        { title: "Ainda é CEDO", key: "C", singer: "" },
+        { title: "CLAUDIO ZOLI POT-POURRI", key: "C", singer: "" },
+        { title: "EXAGERADO (Deborah)", key: "C", singer: "Deborah" },
+        { title: "TAKE ON ME", key: "C", singer: "Deborah" },
+        { title: "IN BETWEEN DAYS – THE CURE", key: "C", singer: "" },
+        { title: "JUST LIKE HEAVEN", key: "C", singer: "" },
+        { title: "A LITTLE RESPECT", key: "C", singer: "Deb" },
+        { title: "EVERYBODY WANTS TO RULE THE WORLD", key: "C", singer: "" },
+        { title: "PSYCHO KILLER", key: "C", singer: "" },
+        { title: "Dancing Queen", key: "C", singer: "Deb" },
+        { title: "Sweet Child of Mine", key: "C", singer: "Deb" },
+        { title: "TWIST AND SHOUT + La Bamba", key: "C", singer: "" },
+        { title: "Don't Start Now - DUA LIPA", key: "C", singer: "Deb" },
+        { title: "HAVE YOU EVER SEEN THE RAIN", key: "C", singer: "Deb" },
+        { title: "FOGO E PAIXAO", key: "C", singer: "" },
+        { title: "Toda Forma de Amor", key: "C", singer: "" },
+        { title: "EVIDENCIAS", key: "C", singer: "" },
+        { title: "WHISKY A GO GO", key: "C", singer: "" },
+        { title: "Milla (Netinho)", key: "C", singer: "" },
+        { title: "NAO QUERO DINHEIRO", key: "C", singer: "" }
+      ];
+    }
+
+    function save() {
+      localStorage.setItem("macbanda_setlist", JSON.stringify(songs));
+    }
+
+    function populateKeyDropdown() {
+      const keySelect = document.getElementById("keyInput");
+      keySelect.innerHTML = KEYS.map(k => `<option value="${k}">${k}</option>`).join('');
+    }
 
     function loadList() {
       const container = document.getElementById("setlist");
       container.innerHTML = "";
-      initialSongs.forEach((song, i) => {
+
+      songs.forEach((song, i) => {
         const div = document.createElement("div");
         div.className = "item";
-        div.innerHTML = `<span>${i + 1}) ${song}</span>`;
+
+        div.innerHTML = `
+          <span>${i + 1}) ${song.title}</span>
+          <div class="controls">
+            <select onchange="updateKey(${i}, this.value)">
+              ${KEYS.map(k => `<option value="${k}" ${song.key===k?'selected':''}>${k}</option>`).join('')}
+            </select>
+
+            <input type="text" value="${song.singer}" placeholder="Cantor(a)" onchange="updateSinger(${i}, this.value)" />
+
+            <button onclick="editTitle(${i})">Editar</button>
+          </div>
+        `;
+
         container.appendChild(div);
       });
     }
 
     function addMusic() {
-      const input = document.getElementById("musicInput");
-      if (input.value.trim() !== "") {
-        initialSongs.push(input.value);
-        loadList();
-        input.value = "";
-      }
+      const title = document.getElementById("musicInput").value.trim();
+      const key = document.getElementById("keyInput").value;
+      const singer = document.getElementById("singerInput").value.trim();
+
+      if (title === "") return;
+
+      songs.push({ title, key, singer });
+      save();
+      loadList();
+
+      document.getElementById("musicInput").value = "";
+      document.getElementById("singerInput").value = "";
     }
 
+    function updateKey(i, value) {
+      songs[i].key = value;
+      save();
+    }
+
+    function updateSinger(i, value) {
+      songs[i].singer = value;
+      save();
+    }
+
+    function editTitle(i) {
+      const newTitle = prompt("Novo nome da música:", songs[i].title);
+      if (newTitle) songs[i].title = newTitle;
+      save();
+      loadList();
+    }
+
+    populateKeyDropdown();
     loadList();
   </script>
 </body>
