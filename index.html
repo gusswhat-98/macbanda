@@ -1,40 +1,112 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MacBanda – Setlist</title>
+    <title>Louvores</title>
     <style>
         body {
-            background: #000;
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            background: #f6f6f6;
             padding: 20px;
         }
-
         h1 {
-            font-size: 2.4rem;
-            color: #db0c2a;
-            text-shadow: 0 0 8px #db0c2a, 0 0 18px #ff002b;
-            margin-bottom: 25px;
             text-align: center;
         }
-
-        .form-box {
-            background: #111;
-            padding: 20px;
-            border-radius: 14px;
+        #music-list {
+            margin-top: 20px;
+            padding: 0;
+            list-style: none;
+        }
+        #music-list li {
+            background: white;
+            margin: 8px 0;
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        form {
+            margin-top: 30px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        input, button {
             width: 100%;
-            max-width: 500px;
-            margin-bottom: 25px;
-            box-shadow: 0 0 18px rgba(219,12,42,0.6);
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Lista de Músicas</h1>
+
+    <ul id="music-list">Carregando...</ul>
+
+    <h2>Adicionar nova música</h2>
+    <form id="music-form">
+        <input type="text" id="music-name" placeholder="Nome da música" required />
+        <input type="text" id="music-link" placeholder="Link do YouTube (opcional)" />
+        <button type="submit">Adicionar</button>
+    </form>
+
+    <script>
+        const endpoint = "https://script.google.com/macros/s/AKfycbyfTpjiMHZMDNd0E5VJtZt3t5t8JR87C4uCKXR8x-8J7Wo5RUo8ZziK1iRdW-iR2fDXpQ/exec";
+
+        async function loadMusic() {
+            try {
+                const res = await fetch(endpoint);
+                const data = await res.json();
+
+                const list = document.getElementById("music-list");
+                list.innerHTML = "";
+
+                data.forEach(music => {
+                    const li = document.createElement("li");
+                    li.innerHTML = music.link
+                        ? `<strong>${music.name}</strong><br><a href="${music.link}" target="_blank">Ver no YouTube</a>`
+                        : `<strong>${music.name}</strong>`;
+                    list.appendChild(li);
+                });
+            } catch (err) {
+                document.getElementById("music-list").innerHTML = "Erro ao carregar músicas.";
+            }
         }
 
+        // carregar na abertura
+        loadMusic();
+
+        // formulário de adicionar
+        document.getElementById("music-form").addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById("music-name").value;
+            const link = document.getElementById("music-link").value;
+
+            await fetch(endpoint, {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({ name, link })
+            });
+
+            document.getElementById("music-name").value = "";
+            document.getElementById("music-link").value = "";
+
+            loadMusic();
+        });
+    </script>
+
+</body>
+</html>
         label {
             display: block;
             font-weight: bold;
