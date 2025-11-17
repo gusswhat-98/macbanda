@@ -1,231 +1,194 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MacBanda – Setlist</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      background-color: #000;
-      color: #fff;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-    }
-    .container {
-      width: 95%;
-      max-width: 900px;
-      background: #111;
-      padding: 30px;
-      margin: 30px 0;
-      border-radius: 12px;
-      box-shadow: 0px 0px 25px rgba(219, 12, 42, 0.6);
-    }
-    .logo {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .logo img {
-      max-width: 65%;
-    }
-    h1 {
-      text-align: center;
-      font-size: 2.2rem;
-      color: #db0c2a;
-      margin-bottom: 10px;
-      text-shadow: 0 0 12px #db0c2a;
-    }
-    .item {
-      background: #1a1a1a;
-      padding: 15px;
-      margin: 10px 0;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.4);
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .item span {
-      font-size: 1.1rem;
-      color: #ffffff;
-      font-weight: bold;
-    }
-    .controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    select, input[type="text"] {
-      padding: 8px;
-      border-radius: 6px;
-      border: none;
-      background: #222;
-      color: #fff;
-      flex: 1;
-      min-width: 100px;
-    }
-    button {
-      background: #db0c2a;
-      border: none;
-      padding: 10px 15px;
-      color: #fff;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-      box-shadow: 0 0 10px rgba(219,12,42,0.6);
-    }
-    label {
-      color: #ffffff;
-      font-weight: bold;
-      display: block;
-      margin-top: 20px;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MacBanda – Setlist</title>
+    <style>
+        body {
+            background: #000;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
 
-    /* MOBILE RESPONSIVE */
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 1.7rem;
-      }
-      .item span {
-        font-size: 1rem;
-      }
-      .controls {
-        flex-direction: column;
-      }
-      button {
-        width: 100%;
-      }
-    }
-  </style>
+        h1 {
+            font-size: 2.4rem;
+            color: #db0c2a;
+            text-shadow: 0 0 8px #db0c2a, 0 0 18px #ff002b;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .form-box {
+            background: #111;
+            padding: 20px;
+            border-radius: 14px;
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 25px;
+            box-shadow: 0 0 18px rgba(219,12,42,0.6);
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #fff;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            background: #222;
+            color: #fff;
+        }
+
+        button {
+            margin-top: 15px;
+            width: 100%;
+            padding: 12px;
+            background: #db0c2a;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 0 10px #db0c2a;
+        }
+
+        .list {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .item {
+            background: #111;
+            padding: 14px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 10px rgba(255,0,0,0.4);
+        }
+
+        .item span {
+            font-size: 1rem;
+            color: #ffffff;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .small-btn {
+            flex: 1;
+            padding: 8px;
+            font-size: 0.9rem;
+            border-radius: 8px;
+        }
+
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="logo">
-      <img src="macbanda.png" alt="Logo MacBanda" />
+    <h1>MacBanda – Setlist Oficial</h1>
+
+    <div class="form-box">
+        <label>Música:</label>
+        <input id="musica" placeholder="Nome da música" />
+
+        <label>Tom:</label>
+        <input id="tom" placeholder="Ex: A, B, C#" />
+
+        <label>Cantor(a):</label>
+        <input id="cantor" placeholder="Quem canta" />
+
+        <label>Observação:</label>
+        <input id="obs" placeholder="Ex: convidado, pot-pourri..." />
+
+        <button onclick="addMusic()">Adicionar Música</button>
     </div>
 
-    <h1>SETLIST – MACBANDA</h1>
+    <div class="list" id="list"></div>
 
-    <div id="setlist"></div>
+<script>
+const API = "https://script.google.com/macros/s/AKfycbyfTpjiMHZMDNd0E5VJtZt3t5t8JR87C4uCKXR8x-8J7Wo5RUo8ZziK1iRdW-iR2fDXpQ/exec";
 
-    <label>Adicionar música</label>
-    <input type="text" id="musicInput" placeholder="Nome da música" />
+async function loadList() {
+    const res = await fetch(API);
+    const data = await res.json();
+    render(data);
+}
 
-    <label>Tom</label>
-    <select id="keyInput"></select>
+function render(items) {
+    const box = document.getElementById("list");
+    box.innerHTML = "";
 
-    <label>Cantor(a)</label>
-    <input type="text" id="singerInput" placeholder="Quem canta" />
-
-    <button onclick="addMusic()">Adicionar</button>
-  </div>
-
-  <script>
-    const KEYS = ["A","Bb","B","C","Db","D","Eb","E","F","Gb","G","Ab"];
-
-    // LocalStorage support
-    let songs = JSON.parse(localStorage.getItem("macbanda_setlist")) || [];
-
-    if (songs.length === 0) {
-      songs = [
-        { title: "PRIMEIROS ERROS", key: "C", singer: "" },
-        { title: "MEU ERRO", key: "C", singer: "" },
-        { title: "Quero Ser Feliz Também", key: "C", singer: "" },
-        { title: "TEMPO PERDIDO", key: "C", singer: "" },
-        { title: "SERÁ", key: "C", singer: "" },
-        { title: "Ainda é CEDO", key: "C", singer: "" },
-        { title: "CLAUDIO ZOLI POT-POURRI", key: "C", singer: "" },
-        { title: "EXAGERADO (Deborah)", key: "C", singer: "Deborah" },
-        { title: "TAKE ON ME", key: "C", singer: "Deborah" },
-        { title: "IN BETWEEN DAYS – THE CURE", key: "C", singer: "" },
-        { title: "JUST LIKE HEAVEN", key: "C", singer: "" },
-        { title: "A LITTLE RESPECT", key: "C", singer: "Deb" },
-        { title: "EVERYBODY WANTS TO RULE THE WORLD", key: "C", singer: "" },
-        { title: "PSYCHO KILLER", key: "C", singer: "" },
-        { title: "Dancing Queen", key: "C", singer: "Deb" },
-        { title: "Sweet Child of Mine", key: "C", singer: "Deb" },
-        { title: "TWIST AND SHOUT + La Bamba", key: "C", singer: "" },
-        { title: "Don't Start Now - DUA LIPA", key: "C", singer: "Deb" },
-        { title: "HAVE YOU EVER SEEN THE RAIN", key: "C", singer: "Deb" },
-        { title: "FOGO E PAIXAO", key: "C", singer: "" },
-        { title: "Toda Forma de Amor", key: "C", singer: "" },
-        { title: "EVIDENCIAS", key: "C", singer: "" },
-        { title: "WHISKY A GO GO", key: "C", singer: "" },
-        { title: "Milla (Netinho)", key: "C", singer: "" },
-        { title: "NAO QUERO DINHEIRO", key: "C", singer: "" }
-      ];
-    }
-
-    function save() {
-      localStorage.setItem("macbanda_setlist", JSON.stringify(songs));
-    }
-
-    function populateKeyDropdown() {
-      const keySelect = document.getElementById("keyInput");
-      keySelect.innerHTML = KEYS.map(k => `<option value="${k}">${k}</option>`).join('');
-    }
-
-    function loadList() {
-      const container = document.getElementById("setlist");
-      container.innerHTML = "";
-
-      songs.forEach((song, i) => {
+    items.forEach(i => {
         const div = document.createElement("div");
         div.className = "item";
-
         div.innerHTML = `
-          <span>${i + 1}) ${song.title}</span>
-          <div class="controls">
-            <select onchange="updateKey(${i}, this.value)">
-              ${KEYS.map(k => `<option value="${k}" ${song.key===k?'selected':''}>${k}</option>`).join('')}
-            </select>
+            <span><b>Música:</b> ${i.musica}</span>
+            <span><b>Tom:</b> ${i.tom}</span>
+            <span><b>Cantor(a):</b> ${i.cantor}</span>
+            <span><b>Obs:</b> ${i.observacao}</span>
 
-            <input type="text" value="${song.singer}" placeholder="Cantor(a)" onchange="updateSinger(${i}, this.value)" />
-
-            <button onclick="editTitle(${i})">Editar</button>
-          </div>
+            <div class="controls">
+                <button class="small-btn" onclick="editMusic('${i.musica}')">Editar</button>
+            </div>
         `;
+        box.appendChild(div);
+    });
+}
 
-        container.appendChild(div);
-      });
-    }
+async function addMusic() {
+    const musica = document.getElementById("musica").value.trim();
+    const tom = document.getElementById("tom").value.trim();
+    const cantor = document.getElementById("cantor").value.trim();
+    const obs = document.getElementById("obs").value.trim();
 
-    function addMusic() {
-      const title = document.getElementById("musicInput").value.trim();
-      const key = document.getElementById("keyInput").value;
-      const singer = document.getElementById("singerInput").value.trim();
+    if (!musica) return alert("Digite a música");
 
-      if (title === "") return;
+    await fetch(API, {
+        method: "POST",
+        body: JSON.stringify({ action: "add", musica, tom, cantor, observacao: obs })
+    });
 
-      songs.push({ title, key, singer });
-      save();
-      loadList();
-
-      document.getElementById("musicInput").value = "";
-      document.getElementById("singerInput").value = "";
-    }
-
-    function updateKey(i, value) {
-      songs[i].key = value;
-      save();
-    }
-
-    function updateSinger(i, value) {
-      songs[i].singer = value;
-      save();
-    }
-
-    function editTitle(i) {
-      const newTitle = prompt("Novo nome da música:", songs[i].title);
-      if (newTitle) songs[i].title = newTitle;
-      save();
-      loadList();
-    }
-
-    populateKeyDropdown();
     loadList();
-  </script>
+}
+
+function editMusic(oldName) {
+    const novo = prompt("Novo nome da música:", oldName);
+    if (!novo) return;
+
+    const tom = prompt("Novo tom:");
+    const cantor = prompt("Novo cantor:");
+    const obs = prompt("Nova observação:");
+
+    updateMusic(oldName, novo, tom, cantor, obs);
+}
+
+async function updateMusic(oldMusica, musica, tom, cantor, observacao) {
+    await fetch(API, {
+        method: "POST",
+        body: JSON.stringify({ action: "update", oldMusica, musica, tom, cantor, observacao })
+    });
+
+    loadList();
+}
+
+loadList();
+</script>
 </body>
 </html>
