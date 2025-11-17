@@ -1,0 +1,143 @@
+<strong><!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MacBanda – Setlist</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #000;
+</strong>      color: #fff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      width: 90%;
+      max-width: 900px;
+      background: #111;
+      padding: 30px;
+      margin: 30px 0;
+      border-radius: 12px;
+      box-shadow: 0px 0px 25px rgba(219, 12, 42, 0.6);
+    }
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .logo img {
+      max-width: 280px;
+    }
+    h1 {
+      text-align: center;
+      font-size: 2.2rem;
+      color: #db0c2a;
+      margin-bottom: 10px;
+      text-shadow: 0 0 12px #db0c2a;
+    }
+    .item {
+      background: #1a1a1a;
+      padding: 12px 15px;
+      margin: 10px 0;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .item span {
+      font-size: 1rem;
+    }
+    input[type="text"] {
+      width: 80%;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      margin-top: 10px;
+    }
+    button {
+      background: #db0c2a;
+      border: none;
+      padding: 10px 15px;
+      color: #fff;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-left: 8px;
+      box-shadow: 0 0 10px rgba(219,12,42,0.6);
+    }
+    button:hover {
+      background: #b40a22;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="macbanda.png" alt="Logo MacBanda" />
+    </div>
+
+    <h1>SETLIST – MACBANDA</h1>
+
+    <div id="setlist"></div>
+
+    <h3>Adicionar música</h3>
+    <input type="text" id="musicInput" placeholder="Nome da música" />
+    <button onclick="addMusic()">Adicionar</button>
+  </div>
+
+  <script>
+    const initialSongs = [
+      "PRIMEIROS ERROS",
+      "MEU ERRO",
+      "Quero Ser Feliz Também",
+      "TEMPO PERDIDO",
+      "SERÁ",
+      "Ainda é CEDO",
+      "CLAUDIO ZOLI POT-POURRI",
+      "EXAGERADO (chamamos Deborah ao palco)",
+      "TAKE ON ME - Deborah Vox",
+      "IN BETWEEN DAYS – THE CURE",
+      "JUST LIKE HEAVEN",
+      "A LITTLE RESPECT - Deb ajudando no refrão",
+      "EVERYBODY WANTS TO RULE THE WORLD",
+      "PSYCHO KILLER",
+      "Dancing Queen",
+      "Sweet Child of Mine",
+      "TWIST AND SHOUT + La Bamba",
+      "Don't Start Now - DUA LIPA - Deb",
+      "HAVE YOU EVER SEEN THE RAIN - Deb",
+      "FOGO E PAIXAO",
+      "Toda Forma de Amor",
+      "EVIDENCIAS",
+      "WHISKY A GO GO",
+      "Milla (Netinho)",
+      "NAO QUERO DINHEIRO"
+    ];
+
+    function loadList() {
+      const container = document.getElementById("setlist");
+      container.innerHTML = "";
+      initialSongs.forEach((song, i) => {
+        const div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = `<span>${i + 1}) ${song}</span>`;
+        container.appendChild(div);
+      });
+    }
+
+    function addMusic() {
+      const input = document.getElementById("musicInput");
+      if (input.value.trim() !== "") {
+        initialSongs.push(input.value);
+        loadList();
+        input.value = "";
+      }
+    }
+
+    loadList();
+  </script>
+</body>
+</html>
