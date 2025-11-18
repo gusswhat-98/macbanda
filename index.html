@@ -1,211 +1,178 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>MacBanda – Setlist</title>
-
 <style>
-    body {
-        background: #000;
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 20px;
-        color: #fff;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    h1 {
-        font-size: 2.4rem;
-        color: #db0c2a;
-        text-shadow: 0 0 8px #db0c2a, 0 0 18px #ff002b;
-        margin-bottom: 25px;
-        text-align: center;
-    }
-
-    .form-box {
-        background: #111;
-        padding: 20px;
-        border-radius: 14px;
-        width: 100%;
-        max-width: 500px;
-        margin-bottom: 25px;
-        box-shadow: 0 0 18px rgba(219,12,42,0.6);
-    }
-
-    label {
-        display: block;
-        font-weight: bold;
-        margin-top: 10px;
-    }
-
-    input {
-        width: 100%;
-        padding: 10px;
-        margin-top: 5px;
-        border-radius: 8px;
-        border: none;
-        outline: none;
-        background: #222;
-        color: #fff;
-    }
-
-    button {
-        margin-top: 15px;
-        width: 100%;
-        padding: 12px;
-        background: #db0c2a;
-        color: #fff;
-        border: none;
-        border-radius: 8px;
-        font-size: 1.1rem;
-        cursor: pointer;
-        box-shadow: 0 0 10px #db0c2a;
-    }
-
-    .list {
-        width: 100%;
-        max-width: 600px;
-    }
-
-    .item {
-        background: #111;
-        padding: 14px;
-        border-radius: 12px;
-        margin-bottom: 12px;
-        box-shadow: 0 0 10px rgba(255,0,0,0.4);
-    }
-
-    .editable {
-        cursor: pointer;
-        padding: 4px 0;
-        display: block;
-    }
-
-    .editable:hover {
-        color: #db0c2a;
-    }
-
-    input.inline {
-        width: 100%;
-        margin-top: 4px;
-        padding: 6px;
-        background: #222;
-        color: #fff;
-        border-radius: 8px;
-    }
+  body{background:#000;color:#fff;font-family:Arial;padding:20px;display:flex;flex-direction:column;align-items:center}
+  h1{color:#db0c2a;text-shadow:0 0 8px #db0c2a,0 0 18px #ff002b;margin-bottom:20px}
+  .form-box{background:#111;padding:16px;border-radius:12px;width:100%;max-width:560px;box-shadow:0 0 18px rgba(219,12,42,0.6);margin-bottom:20px}
+  label{font-weight:bold;margin-top:8px;display:block}
+  input,select{width:100%;padding:10px;border-radius:8px;border:none;background:#222;color:#fff;margin-top:6px}
+  button{margin-top:12px;padding:12px;border-radius:8px;border:none;background:#db0c2a;color:#fff;cursor:pointer;width:100%;box-shadow:0 0 10px #db0c2a}
+  .list{width:100%;max-width:700px}
+  .item{background:#111;padding:14px;border-radius:12px;margin-bottom:12px;box-shadow:0 0 10px rgba(255,0,0,0.35)}
+  .row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+  .col{flex:1;min-width:140px}
+  .label{font-size:0.85rem;color:#bbb}
+  .value{cursor:pointer;padding:6px 0}
+  input.inline, select.inline{width:100%;padding:6px;border-radius:6px;background:#222;color:#fff;border:none}
+  .controls{margin-top:8px;display:flex;gap:8px}
+  .small-btn{flex:1;padding:8px;border-radius:8px;background:#333;border:1px solid #555;color:#fff;cursor:pointer}
 </style>
 </head>
-
 <body>
-
 <h1>MacBanda – Setlist Oficial</h1>
 
 <div class="form-box">
-    <label>Música:</label>
-    <input id="musica" placeholder="Nome da música" />
+  <label>Música</label>
+  <input id="musica" placeholder="Nome da música" />
+  <label>Tom</label>
+  <select id="tomSelect">
+    <option value="">Selecione...</option>
+    <optgroup label="Maiores">
+      <option>C</option><option>C#</option><option>D</option><option>D#</option>
+      <option>E</option><option>F</option><option>F#</option><option>G</option>
+      <option>G#</option><option>A</option><option>A#</option><option>B</option>
+    </optgroup>
+    <optgroup label="Relativos menores">
+      <option>Am</option><option>A#m</option><option>Bm</option><option>Cm</option>
+      <option>C#m</option><option>Dm</option><option>D#m</option><option>Em</option>
+      <option>Fm</option><option>F#m</option><option>Gm</option><option>G#m</option>
+    </optgroup>
+  </select>
 
-    <label>Tom:</label>
-    <input id="tom" placeholder="Ex: A, B, C#" />
-
-    <label>Cantor(a):</label>
-    <input id="cantor" placeholder="Quem canta" />
-
-    <button onclick="addMusic()">Adicionar Música</button>
+  <label>Cantor(a)</label>
+  <input id="cantor" placeholder="Quem canta" />
+  <button id="addBtn">Adicionar Música</button>
 </div>
 
 <div class="list" id="list"></div>
 
 <script>
-const API = "https://script.google.com/macros/s/AKfycbyVG73cDRE1bGhtpo6d4xYRSOmmp1XvLSjxRDshOHQ2TFf_WREdxzVUN7MBCC4paM7L/exec";
-let musicList = []; // guarda tudo em memória
+const API = "API_URL"; // <- substitua pela URL do Web App (exec)
 
-async function loadList() {
-    try {
-        const res = await fetch(API);
-        const data = await res.json();
-        musicList = data; // salva lista completa
-        render(data);
-    } catch (e) {
-        document.getElementById("list").innerHTML =
-            "<div style='color:red;text-align:center;'>Erro ao carregar músicas.</div>";
-    }
+let musicList = [];
+
+async function fetchList(){
+  try{
+    const r = await fetch(API);
+    musicList = await r.json();
+    render(musicList);
+  }catch(e){
+    document.getElementById('list').innerHTML = "<div style='color:#f66;text-align:center'>Erro ao carregar músicas.</div>";
+    console.error(e);
+  }
 }
 
-function render(items) {
-    const box = document.getElementById("list");
-    box.innerHTML = "";
-
-    items.forEach(i => {
-        const div = document.createElement("div");
-        div.className = "item";
-
-        div.innerHTML = `
-            <span class="editable" onclick="editField(this, '${i.musica}', 'musica')"><b>Música:</b> ${i.musica}</span>
-            <span class="editable" onclick="editField(this, '${i.musica}', 'tom')"><b>Tom:</b> ${i.tom}</span>
-            <span class="editable" onclick="editField(this, '${i.musica}', 'cantor')"><b>Cantor:</b> ${i.cantor}</span>
-        `;
-
-        box.appendChild(div);
+function render(items){
+  const box = document.getElementById('list');
+  box.innerHTML = '';
+  items.forEach(item=>{
+    const el = document.createElement('div');
+    el.className = 'item';
+    el.innerHTML = `
+      <div class="row">
+        <div class="col"><div class="label">Música</div><div class="value" data-field="musica">${escapeHtml(item.musica)}</div></div>
+        <div class="col"><div class="label">Tom</div><div class="value" data-field="tom">${escapeHtml(item.tom)}</div></div>
+        <div class="col"><div class="label">Cantor</div><div class="value" data-field="cantor">${escapeHtml(item.cantor)}</div></div>
+      </div>
+      <div class="controls">
+        <button class="small-btn" onclick="deleteMusic(${item.row})">Remover</button>
+      </div>
+    `;
+    // guardar row no elemento para referência
+    el.dataset.row = item.row;
+    // evento delegated para transformar em edit
+    el.querySelectorAll('.value').forEach(v=>{
+      v.addEventListener('click', (e)=>{
+        startInlineEdit(e.target, item.row);
+      });
     });
+    box.appendChild(el);
+  });
 }
 
-function editField(element, oldMusica, field) {
-    const oldValue = element.innerText.split(": ")[1];
-    const input = document.createElement("input");
-    input.className = "inline";
-    input.value = oldValue;
+// escaping simples
+function escapeHtml(s){ return (s||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-    element.replaceWith(input);
-    input.focus();
-
-    input.addEventListener("blur", () => {
-        saveEdit(oldMusica, field, input.value);
+function startInlineEdit(target, row){
+  const field = target.dataset.field;
+  const parent = target.parentElement;
+  // criar input diferente se for tom (select)
+  if(field === 'tom'){
+    const select = document.createElement('select');
+    select.className = 'inline';
+    const options = ["","C","C#","D","D#","E","F","F#","G","G#","A","A#","B","Am","A#m","Bm","Cm","C#m","Dm","D#m","Em","Fm","F#m","Gm","G#m"];
+    options.forEach(o=>{
+      const op = document.createElement('option'); op.value = o; op.textContent = o; if(o===target.textContent) op.selected=true; select.appendChild(op);
     });
-}
+    target.replaceWith(select);
+    select.focus();
 
-async function saveEdit(oldMusica, field, newValue) {
-    const row = musicList.find(m => m.musica === oldMusica);
-
-    if (!row) return alert("Erro interno.");
-
-    const updated = {
-        oldMusica,
-        musica: field === "musica" ? newValue : row.musica,
-        tom:    field === "tom"    ? newValue : row.tom,
-        cantor: field === "cantor" ? newValue : row.cantor
+    const finish = async ()=>{
+      await commitInlineEdit(row, field, select.value);
     };
+    select.addEventListener('blur', finish);
+    select.addEventListener('keydown', async (e)=>{ if(e.key==='Enter'){ e.preventDefault(); select.blur(); } if(e.key==='Escape'){ fetchList(); } });
+  } else {
+    const input = document.createElement('input');
+    input.className = 'inline';
+    input.value = target.textContent;
+    target.replaceWith(input);
+    input.focus();
+    input.select();
 
-    await fetch(API, {
-        method: "POST",
-        body: JSON.stringify({
-            action: "update",
-            ...updated
-        })
-    });
-
-    loadList();
+    const finish = async ()=>{
+      await commitInlineEdit(row, field, input.value.trim());
+    };
+    input.addEventListener('blur', finish);
+    input.addEventListener('keydown', async (e)=>{ if(e.key==='Enter'){ e.preventDefault(); input.blur(); } if(e.key==='Escape'){ fetchList(); } });
+  }
 }
 
-async function addMusic() {
-    const musica = document.getElementById("musica").value.trim();
-    const tom = document.getElementById("tom").value.trim();
-    const cantor = document.getElementById("cantor").value.trim();
+async function commitInlineEdit(row, field, value){
+  // encontrar a linha completa no array em memória
+  const rowObj = musicList.find(r => Number(r.row) === Number(row));
+  if(!rowObj){
+    alert('Linha não encontrada.');
+    return;
+  }
+  const payload = {
+    action: 'update',
+    row: row,
+    musica: rowObj.musica,
+    tom: rowObj.tom,
+    cantor: rowObj.cantor
+  };
+  // substituir só o campo alterado
+  payload[field] = value;
 
-    if (!musica) return alert("Digite a música.");
-
-    await fetch(API, {
-        method: "POST",
-        body: JSON.stringify({ action: "add", musica, tom, cantor })
-    });
-
-    loadList();
+  await fetch(API, { method:'POST', body: JSON.stringify(payload) });
+  await fetchList();
 }
 
-loadList();
+document.getElementById('addBtn').addEventListener('click', async ()=>{
+  const musica = document.getElementById('musica').value.trim();
+  const tom = document.getElementById('tomSelect').value.trim();
+  const cantor = document.getElementById('cantor').value.trim();
+  if(!musica) return alert('Digite a música');
+  await fetch(API, { method:'POST', body: JSON.stringify({ action:'add', musica, tom, cantor }) });
+  document.getElementById('musica').value=''; document.getElementById('cantor').value=''; document.getElementById('tomSelect').value='';
+  await fetchList();
+});
+
+// remover
+async function deleteMusic(row){
+  // simples: vamos atualizar a linha para vazio — (opção de remoção completa exige reescrever sheet)
+  if(!confirm('Remover esta música?')) return;
+  await fetch(API, { method:'POST', body: JSON.stringify({ action:'update', row: row, musica:'', tom:'', cantor:'' }) });
+  await fetchList();
+}
+
+// inicial
+fetchList();
 </script>
-
 </body>
 </html>
