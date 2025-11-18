@@ -6,30 +6,142 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>MacBanda – Setlist</title>
 <style>
-  body{background: url("https://wallpapercave.com/uwp/uwp4880512.jpeg") no-repeat center center fixed;
-  background-size: cover;
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 20px;
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;}
-  h1{color:#db0c2a;text-shadow:0 0 8px #db0c2a,0 0 18px #ff002b;margin-bottom:20px}
-  .form-box{background:#111;padding:16px;border-radius:12px;width:100%;max-width:560px;box-shadow:0 0 18px rgba(219,12,42,0.6);margin-bottom:20px}
-  label{font-weight:bold;margin-top:8px;display:block}
-  input,select{width:100%;padding:10px;border-radius:8px;border:none;background:#222;color:#fff;margin-top:6px}
-  button{margin-top:12px;padding:12px;border-radius:8px;border:none;background:#db0c2a;color:#fff;cursor:pointer;width:100%;box-shadow:0 0 10px #db0c2a}
-  .list{width:100%;max-width:700px}
-  .item{background:#111;padding:14px;border-radius:12px;margin-bottom:12px;box-shadow:0 0 10px rgba(255,0,0,0.35)}
-  .row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-  .col{flex:1;min-width:140px}
-  .label{font-size:0.85rem;color:#bbb}
-  .value{cursor:pointer;padding:6px 0}
-  input.inline, select.inline{width:100%;padding:6px;border-radius:6px;background:#222;color:#fff;border:none}
-  .controls{margin-top:8px;display:flex;gap:8px}
-  .small-btn{flex:1;padding:8px;border-radius:8px;background:#333;border:1px solid #555;color:#fff;cursor:pointer}
+  body{
+    background: url("https://wallpapercave.com/uwp/uwp4880512.jpeg") no-repeat center center fixed;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* 🔥 Overlay para deixar o fundo mais escuro */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.50); /* ajuste da opacidade aqui */
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Garante que o conteúdo fique por cima do overlay */
+  body > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  h1{
+    color:#db0c2a;
+    text-shadow:0 0 8px #db0c2a,0 0 18px #ff002b;
+    margin-bottom:20px;
+  }
+
+  .form-box{
+    background:#111;
+    padding:16px;
+    border-radius:12px;
+    width:100%;
+    max-width:560px;
+    box-shadow:0 0 18px rgba(219,12,42,0.6);
+    margin-bottom:20px;
+  }
+
+  label{
+    font-weight:bold;
+    margin-top:8px;
+    display:block;
+  }
+
+  input,select{
+    width:100%;
+    padding:10px;
+    border-radius:8px;
+    border:none;
+    background:#222;
+    color:#fff;
+    margin-top:6px;
+  }
+
+  button{
+    margin-top:12px;
+    padding:12px;
+    border-radius:8px;
+    border:none;
+    background:#db0c2a;
+    color:#fff;
+    cursor:pointer;
+    width:100%;
+    box-shadow:0 0 10px #db0c2a;
+  }
+
+  .list{
+    width:100%;
+    max-width:700px;
+  }
+
+  .item{
+    background:#111;
+    padding:14px;
+    border-radius:12px;
+    margin-bottom:12px;
+    box-shadow:0 0 10px rgba(255,0,0,0.35);
+  }
+
+  .row{
+    display:flex;
+    gap:12px;
+    align-items:center;
+    flex-wrap:wrap;
+  }
+
+  .col{
+    flex:1;
+    min-width:140px;
+  }
+
+  .label{
+    font-size:0.85rem;
+    color:#bbb;
+  }
+
+  .value{
+    cursor:pointer;
+    padding:6px 0;
+  }
+
+  input.inline, select.inline{
+    width:100%;
+    padding:6px;
+    border-radius:6px;
+    background:#222;
+    color:#fff;
+    border:none;
+  }
+
+  .controls{
+    margin-top:8px;
+    display:flex;
+    gap:8px;
+  }
+
+  .small-btn{
+    flex:1;
+    padding:8px;
+    border-radius:8px;
+    background:#333;
+    border:1px solid #555;
+    color:#fff;
+    cursor:pointer;
+  }
 </style>
+
 </head>
 <body>
 <h1>MacBanda – Setlist Oficial</h1>
