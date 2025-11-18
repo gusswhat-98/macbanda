@@ -1,135 +1,127 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MacBanda – Setlist</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MacBanda – Setlist</title>
 
-    <style>
-        body {
-            background: #000;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+<style>
+    body {
+        background: #000;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 
-        h1 {
-            font-size: 2.4rem;
-            color: #db0c2a;
-            text-shadow: 0 0 8px #db0c2a, 0 0 18px #ff002b;
-            margin-bottom: 25px;
-            text-align: center;
-        }
+    h1 {
+        font-size: 2.4rem;
+        color: #db0c2a;
+        text-shadow: 0 0 8px #db0c2a, 0 0 18px #ff002b;
+        margin-bottom: 25px;
+        text-align: center;
+    }
 
-        .form-box {
-            background: #111;
-            padding: 20px;
-            border-radius: 14px;
-            width: 100%;
-            max-width: 500px;
-            margin-bottom: 25px;
-            box-shadow: 0 0 18px rgba(219,12,42,0.6);
-        }
+    .form-box {
+        background: #111;
+        padding: 20px;
+        border-radius: 14px;
+        width: 100%;
+        max-width: 500px;
+        margin-bottom: 25px;
+        box-shadow: 0 0 18px rgba(219,12,42,0.6);
+    }
 
-        label {
-            display: block;
-            font-weight: bold;
-            margin-top: 10px;
-            color: #fff;
-        }
+    label {
+        display: block;
+        font-weight: bold;
+        margin-top: 10px;
+    }
 
-        input, select {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border-radius: 8px;
-            border: none;
-            outline: none;
-            background: #222;
-            color: #fff;
-        }
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border-radius: 8px;
+        border: none;
+        outline: none;
+        background: #222;
+        color: #fff;
+    }
 
-        button {
-            margin-top: 15px;
-            width: 100%;
-            padding: 12px;
-            background: #db0c2a;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            box-shadow: 0 0 10px #db0c2a;
-        }
+    button {
+        margin-top: 15px;
+        width: 100%;
+        padding: 12px;
+        background: #db0c2a;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        box-shadow: 0 0 10px #db0c2a;
+    }
 
-        .list {
-            width: 100%;
-            max-width: 600px;
-        }
+    .list {
+        width: 100%;
+        max-width: 600px;
+    }
 
-        .item {
-            background: #111;
-            padding: 14px;
-            border-radius: 12px;
-            margin-bottom: 12px;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 0 10px rgba(255,0,0,0.4);
-        }
+    .item {
+        background: #111;
+        padding: 14px;
+        border-radius: 12px;
+        margin-bottom: 12px;
+        box-shadow: 0 0 10px rgba(255,0,0,0.4);
+    }
 
-        .item span {
-            font-size: 1rem;
-            color: #fff;
-        }
+    .row {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
 
-        .controls {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
+    .editable {
+        cursor: pointer;
+        padding: 4px 0;
+    }
 
-        .small-btn {
-            flex: 1;
-            padding: 8px;
-            border-radius: 8px;
-            background: #333;
-            color: #fff;
-            border: 1px solid #555;
-            cursor: pointer;
-        }
-    </style>
+    .editable:hover {
+        color: #db0c2a;
+        text-shadow: 0 0 4px #db0c2a;
+    }
+
+    input.inline {
+        width: 100%;
+        margin: 0;
+        padding: 4px;
+        background: #222;
+        border-radius: 6px;
+    }
+</style>
 </head>
 
 <body>
 
-    <h1>MacBanda – Setlist Oficial</h1>
+<h1>MacBanda – Setlist Oficial</h1>
 
-    <div class="form-box">
-        <label>Música:</label>
-        <input id="musica" placeholder="Nome da música" />
+<div class="form-box">
+    <label>Música:</label>
+    <input id="musica" placeholder="Nome da música" />
 
-        <label>Tom:</label>
-        <select id="tom">
-            <option value="">Selecione...</option>
-            <option>C</option><option>C#</option><option>D</option><option>D#</option>
-            <option>E</option><option>F</option><option>F#</option><option>G</option>
-            <option>G#</option><option>A</option><option>A#</option><option>B</option>
-            <option>Am</option><option>A#m</option><option>Bm</option><option>Cm</option>
-            <option>C#m</option><option>Dm</option><option>D#m</option><option>Em</option>
-            <option>Fm</option><option>F#m</option><option>Gm</option><option>G#m</option>
-        </select>
+    <label>Tom:</label>
+    <input id="tom" placeholder="Ex: A, B, C#" />
 
-        <label>Cantor(a):</label>
-        <input id="cantor" placeholder="Quem canta" />
+    <label>Cantor(a):</label>
+    <input id="cantor" placeholder="Quem canta" />
 
-        <button onclick="addMusic()">Adicionar Música</button>
-    </div>
+    <button onclick="addMusic()">Adicionar Música</button>
+</div>
 
-    <div class="list" id="list"></div>
+<div class="list" id="list"></div>
 
 <script>
 const API = "https://script.google.com/macros/s/AKfycbyVG73cDRE1bGhtpo6d4xYRSOmmp1XvLSjxRDshOHQ2TFf_WREdxzVUN7MBCC4paM7L/exec";
@@ -140,8 +132,7 @@ async function loadList() {
         const data = await res.json();
         render(data);
     } catch (e) {
-        document.getElementById("list").innerHTML =
-            "<div style='color:red;text-align:center;'>Erro ao carregar músicas.</div>";
+        document.getElementById("list").innerHTML = "<div style='color:red;text-align:center;'>Erro ao carregar músicas.</div>";
     }
 }
 
@@ -152,17 +143,45 @@ function render(items) {
     items.forEach(i => {
         const div = document.createElement("div");
         div.className = "item";
-        div.innerHTML = `
-            <span><b>Música:</b> ${i.musica}</span>
-            <span><b>Tom:</b> ${i.tom}</span>
-            <span><b>Cantor:</b> ${i.cantor}</span>
 
-            <div class="controls">
-                <button class="small-btn" onclick="editMusic('${i.musica}')">Editar</button>
+        div.innerHTML = `
+            <div class="row">
+                <span class="editable" onclick="makeEditable(this, '${i.musica}', 'musica')"><b>Música:</b> ${i.musica}</span>
+                <span class="editable" onclick="makeEditable(this, '${i.musica}', 'tom')"><b>Tom:</b> ${i.tom}</span>
+                <span class="editable" onclick="makeEditable(this, '${i.musica}', 'cantor')"><b>Cantor:</b> ${i.cantor}</span>
             </div>
         `;
+
         box.appendChild(div);
     });
+}
+
+function makeEditable(span, oldMusica, field) {
+    const oldText = span.innerText.split(": ")[1];
+
+    const input = document.createElement("input");
+    input.className = "inline";
+    input.value = oldText;
+
+    span.replaceWith(input);
+    input.focus();
+
+    input.addEventListener("blur", () => {
+        saveInlineEdit(oldMusica, field, input.value);
+    });
+}
+
+async function saveInlineEdit(oldMusica, field, newValue) {
+    await fetch(API, {
+        method: "POST",
+        body: JSON.stringify({
+            action: "update",
+            oldMusica,
+            [field]: newValue
+        })
+    });
+
+    loadList();
 }
 
 async function addMusic() {
@@ -175,23 +194,6 @@ async function addMusic() {
     await fetch(API, {
         method: "POST",
         body: JSON.stringify({ action: "add", musica, tom, cantor })
-    });
-
-    loadList();
-}
-
-function editMusic(oldName) {
-    const novo = prompt("Novo nome:", oldName);
-    const tom = prompt("Novo tom:");
-    const cantor = prompt("Novo cantor:");
-
-    updateMusic(oldName, novo, tom, cantor);
-}
-
-async function updateMusic(oldMusica, musica, tom, cantor) {
-    await fetch(API, {
-        method: "POST",
-        body: JSON.stringify({ action: "update", oldMusica, musica, tom, cantor })
     });
 
     loadList();
