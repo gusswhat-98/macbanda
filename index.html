@@ -42,7 +42,7 @@
             color: #fff;
         }
 
-        input {
+        input, select {
             width: 100%;
             padding: 10px;
             margin-top: 5px;
@@ -113,7 +113,15 @@
         <input id="musica" placeholder="Nome da música" />
 
         <label>Tom:</label>
-        <input id="tom" placeholder="Ex: A, B, C#" />
+        <select id="tom">
+            <option value="">Selecione...</option>
+            <option>C</option><option>C#</option><option>D</option><option>D#</option>
+            <option>E</option><option>F</option><option>F#</option><option>G</option>
+            <option>G#</option><option>A</option><option>A#</option><option>B</option>
+            <option>Am</option><option>A#m</option><option>Bm</option><option>Cm</option>
+            <option>C#m</option><option>Dm</option><option>D#m</option><option>Em</option>
+            <option>Fm</option><option>F#m</option><option>Gm</option><option>G#m</option>
+        </select>
 
         <label>Cantor(a):</label>
         <input id="cantor" placeholder="Quem canta" />
@@ -166,12 +174,7 @@ async function addMusic() {
 
     await fetch(API, {
         method: "POST",
-        body: JSON.stringify({
-            action: "add",
-            musica,
-            tom,
-            cantor
-        })
+        body: JSON.stringify({ action: "add", musica, tom, cantor })
     });
 
     loadList();
@@ -188,13 +191,7 @@ function editMusic(oldName) {
 async function updateMusic(oldMusica, musica, tom, cantor) {
     await fetch(API, {
         method: "POST",
-        body: JSON.stringify({
-            action: "update",
-            oldMusica,
-            musica,
-            tom,
-            cantor
-        })
+        body: JSON.stringify({ action: "update", oldMusica, musica, tom, cantor })
     });
 
     loadList();
