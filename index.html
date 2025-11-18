@@ -78,28 +78,23 @@
         box-shadow: 0 0 10px rgba(255,0,0,0.4);
     }
 
-    .row {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-    }
-
     .editable {
         cursor: pointer;
         padding: 4px 0;
+        display: block;
     }
 
     .editable:hover {
         color: #db0c2a;
-        text-shadow: 0 0 4px #db0c2a;
     }
 
     input.inline {
         width: 100%;
-        margin: 0;
-        padding: 4px;
+        margin-top: 4px;
+        padding: 6px;
         background: #222;
-        border-radius: 6px;
+        color: #fff;
+        border-radius: 8px;
     }
 </style>
 </head>
@@ -125,14 +120,17 @@
 
 <script>
 const API = "https://script.google.com/macros/s/AKfycbyVG73cDRE1bGhtpo6d4xYRSOmmp1XvLSjxRDshOHQ2TFf_WREdxzVUN7MBCC4paM7L/exec";
+let musicList = []; // guarda tudo em memória
 
 async function loadList() {
     try {
         const res = await fetch(API);
         const data = await res.json();
+        musicList = data; // salva lista completa
         render(data);
     } catch (e) {
-        document.getElementById("list").innerHTML = "<div style='color:red;text-align:center;'>Erro ao carregar músicas.</div>";
+        document.getElementById("list").innerHTML =
+            "<div style='color:red;text-align:center;'>Erro ao carregar músicas.</div>";
     }
 }
 
@@ -145,39 +143,46 @@ function render(items) {
         div.className = "item";
 
         div.innerHTML = `
-            <div class="row">
-                <span class="editable" onclick="makeEditable(this, '${i.musica}', 'musica')"><b>Música:</b> ${i.musica}</span>
-                <span class="editable" onclick="makeEditable(this, '${i.musica}', 'tom')"><b>Tom:</b> ${i.tom}</span>
-                <span class="editable" onclick="makeEditable(this, '${i.musica}', 'cantor')"><b>Cantor:</b> ${i.cantor}</span>
-            </div>
+            <span class="editable" onclick="editField(this, '${i.musica}', 'musica')"><b>Música:</b> ${i.musica}</span>
+            <span class="editable" onclick="editField(this, '${i.musica}', 'tom')"><b>Tom:</b> ${i.tom}</span>
+            <span class="editable" onclick="editField(this, '${i.musica}', 'cantor')"><b>Cantor:</b> ${i.cantor}</span>
         `;
 
         box.appendChild(div);
     });
 }
 
-function makeEditable(span, oldMusica, field) {
-    const oldText = span.innerText.split(": ")[1];
-
+function editField(element, oldMusica, field) {
+    const oldValue = element.innerText.split(": ")[1];
     const input = document.createElement("input");
     input.className = "inline";
-    input.value = oldText;
+    input.value = oldValue;
 
-    span.replaceWith(input);
+    element.replaceWith(input);
     input.focus();
 
     input.addEventListener("blur", () => {
-        saveInlineEdit(oldMusica, field, input.value);
+        saveEdit(oldMusica, field, input.value);
     });
 }
 
-async function saveInlineEdit(oldMusica, field, newValue) {
+async function saveEdit(oldMusica, field, newValue) {
+    const row = musicList.find(m => m.musica === oldMusica);
+
+    if (!row) return alert("Erro interno.");
+
+    const updated = {
+        oldMusica,
+        musica: field === "musica" ? newValue : row.musica,
+        tom:    field === "tom"    ? newValue : row.tom,
+        cantor: field === "cantor" ? newValue : row.cantor
+    };
+
     await fetch(API, {
         method: "POST",
         body: JSON.stringify({
             action: "update",
-            oldMusica,
-            [field]: newValue
+            ...updated
         })
     });
 
